@@ -21,3 +21,8 @@ export interface MovieProps {
   }>;
   Runtime: string;
 }
+
+export interface SideBarProps {
+  onNewGenreSelected: (genreID: number) => void;
+  onSelectedGenreId: number
+}
