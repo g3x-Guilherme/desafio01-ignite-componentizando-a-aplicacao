@@ -1,20 +1,41 @@
+import { useEffect, useState } from 'react';
+import { GenreResponseProps } from '../services/api';
+import { MovieProps } from '../services/api';
 
 import { MovieCard } from '../components/MovieCard';
-import { useGenres } from '../hooks/useContext';
 
-
+import { api } from '../services/api';
 import '../styles/global.scss';
-
+import '../styles/sidebar.scss';
 import '../styles/content.scss';
 
-export function Content() {
-  const {  movies, selectedGenre,} = useGenres()
-  
+interface ContentProps {
+  selectedGenreId: number
+}
 
+
+
+export function Content({selectedGenreId}: ContentProps) {
+  
+  
+  const [selectedGenre, setSelectedGenre] = useState<GenreResponseProps>({} as GenreResponseProps);
+  const [movies, setMovies] = useState<MovieProps[]>([]);
+
+  useEffect(() => {
+    api.get<MovieProps[]>(`movies/?Genre_id=${selectedGenreId}`).then((response) => {
+      
+      setMovies(response.data);
+    }, (error) => {console.log(error)});
+
+    api.get<GenreResponseProps>(`genres/${selectedGenreId}`).then(response => {
+      setSelectedGenre(response.data);
+    })
+  }, [selectedGenreId]);
+
+  
+   
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
      
-     {console.log('tranquilo')}
       <div className="container">
         <header>
           <span className="category">Categoria:<span> {selectedGenre.title}</span></span>
@@ -28,6 +49,6 @@ export function Content() {
           </div>
         </main>
       </div>
-    </div>
+    
   )
 }
