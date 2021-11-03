@@ -13,8 +13,9 @@ return (
  <div style={{ display: 'flex', flexDirection: 'row' }}>
 
       <SideBar 
-      OnGenreSelected={setSelectedGenreId} selectedGenreId={selectedGenreId} 
+      onNewGenreSelected={setSelectedGenreId} onSelectedGenreId={selectedGenreId} 
       />
+      
       <Content 
       selectedGenreId={selectedGenreId}
       />

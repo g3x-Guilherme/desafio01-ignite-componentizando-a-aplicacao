@@ -25,4 +25,5 @@ export interface MovieProps {
 export interface SideBarProps {
   onNewGenreSelected: (genreID: number) => void;
   onSelectedGenreId: number
+  
 }

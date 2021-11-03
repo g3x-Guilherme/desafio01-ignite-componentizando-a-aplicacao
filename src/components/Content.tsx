@@ -27,6 +27,7 @@ export function Content({selectedGenreId}: ContentProps) {
       setMovies(response.data);
     }, (error) => {console.log(error)});
 
+    
     api.get<GenreResponseProps>(`genres/${selectedGenreId}`).then(response => {
       setSelectedGenre(response.data);
     })
@@ -46,9 +47,12 @@ export function Content({selectedGenreId}: ContentProps) {
             {movies.map(movie => (
               <MovieCard key ={movie.imdbID} title={movie.Title} poster={movie.Poster} runtime={movie.Runtime} rating={movie.Ratings[0].Value} />
             ))}
+            
           </div>
         </main>
       </div>
+      
     
   )
+  
 }
